@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StarConnectNet: Faster data. Smarter networks. Precise navigation.</title>
+<meta name="description" content="StarConnectNet is building a scalable optical line-of-sight network with integrated precision PNT, designed to complement fiber, RF and GNSS.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>🛰️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#081214;--bg2:#0d1b1e;--card:#112326;--line:#1f3a3d;--tx:#e4efec;--mu:#8aa6a4;--g:#5fd3a0;--a:#f2a33a;--b:#5bb8ee;--p:#a094f2;--r:10px}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{background:var(--bg);color:var(--tx);font:16px/1.65 Manrope,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:"Space Grotesk",Manrope,sans-serif;line-height:1.2;font-weight:700}
+a{color:var(--g)}
+:focus-visible{outline:2px solid var(--g);outline-offset:3px}
+.w{max-width:1120px;margin:0 auto;padding:0 22px}
+section{padding:84px 0;border-top:1px solid var(--line)}
+section:nth-of-type(even){background:var(--bg2)}
+h2{font-size:clamp(1.7rem,3.4vw,2.4rem);margin-bottom:12px;max-width:22ch}
+h3{font-size:1.05rem;margin-bottom:6px}
+.lead{color:var(--mu);max-width:68ch;margin-bottom:34px}
+.sub{font-size:1.15rem;margin:44px 0 14px}
+p{max-width:70ch}
+nav{position:sticky;top:0;z-index:9;background:rgba(8,18,20,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav .w{display:flex;align-items:center;gap:22px;height:58px}
+nav b{font:700 1.05rem "Space Grotesk";margin-right:auto;color:var(--tx);text-decoration:none}
+nav a{color:var(--mu);text-decoration:none;font-size:.9rem}
+nav a:hover{color:var(--tx)}
+.btn{display:inline-block;padding:11px 20px;border-radius:8px;font-weight:700;text-decoration:none;border:1px solid var(--g);color:var(--g)}
+.btn.p{background:var(--g);color:#06201a}
+nav .btn{padding:7px 14px;font-size:.88rem;color:var(--g)}
+.hero{padding:90px 0 70px;border:0;background:radial-gradient(900px 400px at 85% 10%,#12363a 0,transparent 70%),var(--bg)}
+.hero .w{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.hero h1{font-size:clamp(2.6rem,6vw,4.4rem);letter-spacing:-.02em}
+.hero .tag-l{font:500 clamp(1.1rem,2vw,1.4rem) "Space Grotesk";color:var(--g);margin:14px 0 18px}
+.hero p{color:var(--mu);margin-bottom:26px}
+.hero .btns{display:flex;gap:12px;flex-wrap:wrap}
+.status{margin-top:30px;display:flex;gap:10px;flex-wrap:wrap}
+.pill{border:1px solid var(--line);border-radius:99px;padding:4px 13px;font-size:.84rem;color:var(--mu)}
+.pill b{color:var(--a);font-weight:700}
+svg.beam .pulse{stroke-dasharray:6 10;animation:dash 2.4s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-32}}
+@media(prefers-reduced-motion:reduce){svg.beam .pulse{animation:none}html{scroll-behavior:auto}}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.grid.g3{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--c,var(--g));border-radius:var(--r);padding:20px;position:relative}
+.card p{color:var(--mu);font-size:.93rem}
+.card ul{margin:8px 0 0 18px;color:var(--mu);font-size:.9rem}
+.tag{float:right;font-size:.74rem;padding:2px 10px;border-radius:99px;border:1px solid var(--c,var(--g));color:var(--c,var(--g));margin-left:8px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:22px;display:flex;flex-direction:column}
+.panel h3{font-size:1.1rem}
+.unit{color:var(--mu);font-size:.85rem}
+.bars{display:flex;align-items:flex-end;gap:14px;height:170px;margin:18px 0 8px;border-bottom:1px solid var(--line)}
+.bar{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%}
+.bar i{display:block;width:100%;max-width:70px;background:linear-gradient(var(--g),#2c8f6c);border-radius:5px 5px 0 0;min-height:3px}
+.bar span{font:700 .85rem "Space Grotesk";margin-bottom:4px}
+.lbls{display:flex;gap:14px;font-size:.82rem;color:var(--mu);text-align:center}.lbls span{flex:1}
+.big{font:700 1.7rem "Space Grotesk";color:var(--g);margin:16px 0 2px}
+.panel ul{margin:10px 0 0 18px;color:var(--mu);font-size:.92rem}
+.src{margin-top:auto;padding-top:14px;font-size:.78rem;color:#6d8987}
+.thesis{margin-top:26px;border-left:3px solid var(--g);background:rgba(95,211,160,.07);padding:14px 18px;border-radius:0 var(--r) var(--r) 0}
+.thesis b{color:var(--g)}
+.kpi{display:flex;gap:16px;flex-wrap:wrap}
+.kpi div{flex:1 1 200px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+.kpi strong{display:block;font:700 2rem "Space Grotesk";color:var(--a)}
+.kpi span{color:var(--mu);font-size:.9rem}
+.donut{width:120px;height:120px;border-radius:50%;background:conic-gradient(var(--g) 0 90%,#2a4447 90% 100%);display:grid;place-items:center;margin:8px 0}
+.donut::after{content:"90%";width:80px;height:80px;border-radius:50%;background:var(--card);display:grid;place-items:center;font:700 1.2rem "Space Grotesk"}
+.stack div{display:flex;justify-content:space-between;padding:9px 14px;border-radius:7px;margin-top:8px;font-size:.92rem;color:#06201a;font-weight:700}
+.flow{display:flex;flex-wrap:wrap;gap:10px;align-items:stretch;margin:6px 0 14px}
+.node{flex:1 1 150px;background:var(--card);border:1px solid var(--line);border-left:3px solid var(--c,var(--g));border-radius:8px;padding:12px 14px}
+.node b{display:block;font:700 .98rem "Space Grotesk"}.node small{color:var(--mu);font-size:.8rem}
+.node.core{border-color:var(--a);border-left-color:var(--a)}
+.arrow{align-self:center;color:var(--mu)}
+.rowlab{font-weight:700;color:var(--mu);font-size:.9rem;margin:22px 0 4px}
+.pnt{background:rgba(95,211,160,.1);border:1px solid var(--g);border-radius:var(--r);padding:14px 18px;margin:12px 0}
+table{width:100%;border-collapse:collapse;font-size:.9rem;min-width:640px}
+th,td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--line)}
+th{color:var(--mu);font-weight:500;background:var(--card)}
+td.s,th.s{color:var(--g);font-weight:700;background:rgba(95,211,160,.07)}
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips span{background:var(--card);border:1px solid var(--line);border-radius:99px;padding:6px 14px;font-size:.9rem}
+.note{color:#6d8987;font-size:.82rem;margin-top:14px}
+.contact{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:20px}
+footer{padding:30px 0;border-top:1px solid var(--line);color:#6d8987;font-size:.82rem}
+@media(max-width:860px){nav a:not(.btn){display:none}.hero .w{grid-template-columns:1fr}section{padding:60px 0}}
+</style>
+</head>
+<body>
+<nav><div class="w"><b>StarConnectNet</b>
+<a href="#market">Market</a><a href="#problem">Problem</a><a href="#landscape">Landscape</a><a href="#architecture">Architecture</a><a href="#edge">Advantage</a><a href="#business">Business</a><a href="#roadmap">Roadmap</a><a href="#team">Team</a>
+<a class="btn" href="#contact">Contact</a></div></nav>
+
+<header class="hero"><div class="w">
+<div>
+<h1>StarConnectNet</h1>
+<div class="tag-l">Faster data. Smarter networks. Precise navigation.</div>
+<p>One optical infrastructure layer that carries high-capacity communications and precision positioning, navigation and timing (PNT). It adds to fiber, RF and GNSS and does not replace them.</p>
+<div class="btns"><a class="btn p" href="#architecture">See the architecture</a><a class="btn" href="GITHUB_URL" target="_blank" rel="noopener">View on GitHub</a><a class="btn" href="PITCH_DECK_PDF_URL" target="_blank" rel="noopener">Pitch deck (PDF)</a></div>
+<div class="status"><span class="pill">Readiness: <b>TRL 2</b>, concept formulated</span><span class="pill">Next: integrated lab POC</span><span class="pill">Seeking pre-seed incubation (IIMCIP)</span></div>
+</div>
+<svg class="beam" viewBox="0 0 400 300" role="img" aria-label="Diagram of ground optical nodes linked by laser beams to a low Earth orbit satellite">
+<defs><linearGradient id="gr" x1="0" x2="1"><stop offset="0" stop-color="#5fd3a0"/><stop offset="1" stop-color="#5bb8ee"/></linearGradient></defs>
+<path d="M20 270 Q200 230 380 270" fill="none" stroke="#1f3a3d" stroke-width="2"/>
+<g fill="none" stroke="url(#gr)" stroke-width="2"><path class="pulse" d="M70 252 L200 70"/><path class="pulse" d="M330 252 L200 70"/><path class="pulse" d="M70 252 L330 252"/></g>
+<circle cx="70" cy="252" r="9" fill="#5fd3a0"/><circle cx="330" cy="252" r="9" fill="#5fd3a0"/>
+<rect x="184" y="56" width="32" height="24" rx="4" fill="#f2a33a"/><path d="M168 68h16M216 68h16" stroke="#f2a33a" stroke-width="6"/>
+<g fill="#8aa6a4" font-size="12" font-family="Manrope"><text x="40" y="285">Ground node</text><text x="296" y="285">Data centre</text><text x="226" y="62">LEO node</text><text x="190" y="190">PNT ranging and timing</text></g>
+</svg>
+</div></header>
+
+<section id="market"><div class="w">
+<h2>Demand for capacity and precision is rising</h2>
+<p class="lead">Mobile traffic, compute infrastructure and resilient positioning are all growing, and they put pressure on the same transport and timing layers.</p>
+<div class="grid g3" id="panels"></div>
+<div class="thesis"><b>Traffic:</b> rising traffic strengthens the case for scalable optical transport and high-capacity interconnection. <b>PNT:</b> build a complementary LEO PNT layer using optical ranging, timing and the same infrastructure that carries communications.</div>
+
+<h3 class="sub">India: computing infrastructure</h3>
+<p class="lead" style="margin-bottom:18px">A rapidly expanding data-centre footprint is concentrating high-bandwidth interconnection demand around major hubs.</p>
+<div class="kpi"><div><strong>~1,530 MW</strong><span>Operational data-centre capacity in 9M 2025</span></div><div><strong>260 MW</strong><span>New capacity added in 9M 2025</span></div>
+<div><div class="donut" role="img" aria-label="Top 4 hubs hold about 90 percent"></div><span>Top 4 hubs hold about 90% of capacity. Concentrated demand creates strategic interconnection corridors.</span></div></div>
+<div class="grid" id="dc" style="margin-top:16px"></div>
+<div class="thesis"><b>Implication for SCN:</b> growing and geographically distributed compute capacity creates a clear need for scalable, high-capacity interconnection.</div>
+
+<h3 class="sub">India: PNT infrastructure</h3>
+<p class="lead" style="margin-bottom:18px">Today's positioning, navigation and timing infrastructure is built around GNSS, regional systems and precision augmentation.</p>
+<div class="grid g3"><div id="pnti" style="display:grid;gap:16px"></div>
+<div class="panel"><h3>Precision stack: metres to centimetres</h3><div class="stack"><div style="background:#a8d98f"><span>GNSS</span><span>metre-scale</span></div><div style="background:#6fc46a"><span>Augmentation</span><span>sub-metre</span></div><div style="background:#3fa54f"><span>RTK / PPP</span><span>centimetre-level*</span></div></div>
+<p class="note">*Centimetre-level performance depends on service, receiver, correction data, environment and operating conditions.</p></div>
+<div class="panel"><h3>NavIC</h3><p class="unit" style="margin-top:6px">India's regional PNT system, with independent coverage over India and about 1,500 km beyond the mainland.</p><div class="thesis" style="margin-top:auto"><b>Implication for SCN:</b> SC-PNT must complement existing GNSS infrastructure and not simply duplicate it.</div></div></div>
+</div></section>
+
+<section id="problem"><div class="w">
+<h2>The gap is deployment, optical networking and resilience</h2>
+<p class="lead">High-speed connectivity is available, but extending it efficiently and building resilient PNT infrastructure remain difficult. The gap is no longer only about speed.</p>
+<div class="grid" id="prob"></div>
+<div class="thesis"><b>The gap:</b> scalable optical connectivity and resilient, high-precision PNT in one infrastructure layer.</div>
+<p class="note">StarConnectNet is a proposed architecture. Commercial deployment and performance validation remain future work.</p>
+</div></section>
+
+<section id="landscape"><div class="w">
+<h2>Existing solutions each solve part of the problem</h2>
+<p class="lead">Fiber, RF, FSO, GNSS and LEO-PNT leave gaps in deployment flexibility, scalable optical networking and precision PNT.</p>
+<div class="grid" id="gap"></div>
+<div class="thesis"><b>Opportunity:</b> optical LOS network + LEO pathway + SC-PNT. No single mature infrastructure combines scalable optical connectivity with integrated precision PNT. SCN is not replacing fiber, RF or GNSS. It adds a new optical networking layer and a complementary PNT capability.</div>
+
+<h3 class="sub">Existing FSO solutions and their limits</h3>
+<p class="lead" style="margin-bottom:16px">High-capacity optical links are proven, but deployment, availability and network scalability remain challenges.</p>
+<div class="grid" id="fso"></div>
+<div class="thesis"><b>The gap:</b> FSO provides exceptional link capacity, but scalable, dynamically routed optical LOS infrastructure remains an open deployment challenge.</div>
+
+<h3 class="sub">FSO competitive landscape</h3>
+<div class="scroll"><table id="cmp"></table></div>
+<p class="note">*Mynaric: 100-Gbps option; nominal CONDOR Mk3.1 data-rate configurations vary by mode. StarConnectNet entries are plans, targets or proposals and not demonstrated capabilities.</p>
+
+<h3 class="sub">Existing PNT solutions and their limits</h3>
+<div class="grid" id="pntx"></div>
+<div class="thesis"><b>The gap:</b> no mature LEO optical network yet combines high-capacity communication with integrated precision PNT.</div>
+</div></section>
+
+<section id="architecture"><div class="w">
+<h2>One infrastructure: transmission, networking and PNT</h2>
+<p class="lead">A unified architecture combining proprietary optical transmission, intelligent line-of-sight networking and planned precision PNT. Nodes outlined in amber are proprietary core components.</p>
+<div class="rowlab">Data and transmission, then network intelligence</div><div class="flow" id="tx"></div>
+<div class="pnt"><b>SC-PNT (planned)</b><br><span class="unit">Position, navigation and precision timing, fed by the optical / LEO node and SC-PCLR.</span></div>
+<div class="rowlab">Receive path</div><div class="flow" id="rx"></div>
+<div class="rowlab">PNT delivery</div><div class="flow" id="pn"></div>
+<div class="thesis"><b>Proprietary / core:</b> FSOP-vN (transmission), SC-PCLR (acquisition and routing) and SC-PNT (planned). Optical transmission, intelligent networking and precision PNT run on one infrastructure.</div>
+</div></section>
+
+<section id="edge"><div class="w">
+<h2>Differentiation at the system level</h2>
+<p class="lead">SCN positions its advantage in the whole architecture and not only in the optical link.</p>
+<h3 class="sub" style="margin-top:0">How StarConnectNet creates advantage</h3>
+<div class="grid" id="adv"></div>
+<div class="thesis"><b>Positioning:</b> SCN aims to turn high-capacity optical links into a scalable optical LOS networking infrastructure.</div>
+<h3 class="sub">The SC-PNT advantage</h3>
+<p class="lead" style="margin-bottom:16px">SC-PNT is planned as a precision PNT capability built into the same optical infrastructure. It is complementary to GNSS and does not claim to replace it.</p>
+<div class="grid" id="spn"></div>
+<div class="thesis"><b>Positioning:</b> SC-PNT aims to make the optical network both a communications infrastructure and a future precision-PNT platform.</div>
+</div></section>
+
+<section id="business"><div class="w">
+<h2>Two revenue engines on one infrastructure</h2>
+<p class="lead">B2B optical transport is the initial commercial entry. SC-PNT is a planned future service and is not yet commercially deployed.</p>
+<div class="kpi"><div><strong>₹1 Cr</strong><span>NSO Long Distance entry fee</span></div><div><strong>₹2.5 Cr</strong><span>Minimum equity plus net worth</span></div><div><strong>8% AGR</strong><span>Annual authorization fee</span></div></div>
+<div class="thesis"><b>Regulatory signal, licensed connectivity plus technology-provider pathway:</b> SCN provides optical infrastructure and transport, and partners with licensed operators for connectivity delivery.</div>
+<div class="grid g3" style="margin-top:22px">
+<div class="panel"><h3 style="color:var(--b)">B2B optical transport</h3><div class="flow" id="b2b" style="flex-direction:column"></div><p class="unit"><b>Revenue:</b> recurring capacity and transport contracts. Dedicated connectivity, backhaul and interconnection.</p></div>
+<div class="panel"><h3 style="color:var(--a)">B2C SC-PNT services</h3><div class="flow" id="b2c" style="flex-direction:column"></div><p class="unit"><b>Revenue:</b> PNT subscriptions, service tiers, and enterprise or API access, for drones, robotics, mobility and devices.</p></div></div>
+<div class="thesis"><b>Commercial thesis:</b> B2B monetizes optical capacity. B2C monetizes SC-PNT as a service delivered to end users over RF.</div>
+</div></section>
+
+<section id="roadmap"><div class="w">
+<h2>Where we are and what we prove next</h2>
+<p class="lead">The key step is converting analytical validation into measured optical-system evidence, from TRL 2 toward TRL 3.</p>
+<div class="grid" id="trl"></div>
+<p class="note">Status: no integrated optical POC yet. Experimental BER, throughput and timing validation remain to be demonstrated.</p>
+<h3 class="sub">Plan of action</h3>
+<p class="lead" style="margin-bottom:16px">Completed: ideation and concept building. Current: developing the proof of concept. Next: validate.</p>
+<div class="grid" id="plan"></div>
+<div class="thesis"><b>Roadmap logic:</b> prove the link at short range first, validate scaling, integrate satellite-assisted networking, then launch an MVP. Distance targets and satellite validation remain subject to experimental results and engineering feasibility.</div>
+</div></section>
+
+<section id="team"><div class="w">
+<h2>A multidisciplinary founding team</h2>
+<p class="lead">Eight directors building optical transmission, satellite systems and intelligent networking.</p>
+<div class="grid" id="tm"></div>
+<h3 class="sub">Existing skill coverage</h3><div class="chips" id="sk"></div>
+<h3 class="sub">Where we are expanding</h3><div class="grid" id="ex"></div>
+<div class="thesis"><b>Team priority:</b> recruit specialist talent across satellite systems, optics, photonics and system integration to accelerate POC development.</div>
+</div></section>
+
+<section id="ask"><div class="w">
+<h2>What we need from IIMCIP: pre-seed incubation</h2>
+<p class="lead">The immediate objective is not scale. It is to convert SCN's technical architecture into a measured optical POC and a functional prototype for a fundable deep-tech company.</p>
+<div class="grid" id="need"></div>
+<div class="thesis"><b>Pre-seed outcome:</b> integrated POC, measured BER / throughput / timing, TRL 3, pilot readiness, a qualified team, then follow-on funding.</div>
+</div></section>
+
+<section id="contact"><div class="w">
+<h2>Get in touch</h2>
+<p class="lead">We are looking for mentors, pilot partners, incubators and technical collaborators in optics, photonics, satellite systems and networking.</p>
+<div class="contact">
+<div class="card"><h3>Email</h3><p><a href="mailto:EMAIL_ADDRESS">EMAIL_ADDRESS</a></p></div>
+<div class="card" style="--c:var(--b)"><h3>GitHub</h3><p><a href="GITHUB_URL" target="_blank" rel="noopener">GITHUB_URL</a></p></div>
+<div class="card" style="--c:var(--p)"><h3>LinkedIn</h3><p><a href="LINKEDIN_URL" target="_blank" rel="noopener">LINKEDIN_URL</a></p></div>
+<div class="card" style="--c:var(--a)"><h3>Pitch deck</h3><p><a href="PITCH_DECK_PDF_URL" target="_blank" rel="noopener">Download the PDF</a></p></div>
+</div></div></section>
+
+<footer><div class="w">StarConnectNet is at concept stage (TRL 2). Market figures come from the cited third-party sources and estimates vary by market definition. Replace the placeholder links above (GITHUB_URL, EMAIL_ADDRESS, LINKEDIN_URL, PITCH_DECK_PDF_URL) before publishing.</div></footer>
+
+<script>
+const $=s=>document.querySelector(s);
+const G="#5fd3a0",A="#f2a33a",B="#5bb8ee",P="#a094f2",S="#7d93a0";
+const TG={Core:G,Planned:A,Target:B,Proposed:P};
+function cards(id,l,cs){$(id).innerHTML=l.map(([h,t,tag,c])=>`<article class="card" style="--c:${c||(tag&&TG[tag])||G}">${tag?`<span class="tag">${tag}</span>`:""}<h3>${h}</h3><p>${t}</p></article>`).join("")}
+function panel(id,t,u,d,max,key,facts,src){const el=document.createElement("div");el.className="panel";
+el.innerHTML=`<h3>${t}</h3><span class="unit">${u}</span><div class="bars">${d.map(x=>`<div class="bar"><span>${x[2]}</span><i style="height:${Math.max(x[1]/max*100*.8,2)}%"></i></div>`).join("")}</div><div class="lbls">${d.map(x=>`<span>${x[0]}</span>`).join("")}</div><div class="big">${key}</div><ul>${facts.map(f=>`<li>${f}</li>`).join("")}</ul><div class="src">${src}</div>`;$(id).appendChild(el)}
+function flow(id,l){$(id).innerHTML=l.map(([h,s,k],i)=>`${i?'<span class="arrow" aria-hidden="true">&#9654;</span>':""}<div class="node ${k||""}"><b>${h}</b><small>${s}</small></div>`).join("")}
+
+panel("#panels","Global mobile network traffic","EB per month",[["Q2 2019",30,"~30"],["Q2 2026",220,">220"]],250,"~7× since Q2 2019",["Market signal: >220 EB/month in Q2 2026, +23% YoY","More traffic increases pressure on transport and interconnection capacity","Demand for high-capacity, low-latency links between networks, data centers, immersive telepresence and distributed compute"],"Source: Ericsson mobility traffic data as cited in the deck.");
+panel("#panels","Global LEO-PNT market","USD million",[["2025",154,"$154M"],["2030",1600,"$1.6B"],["2034",7800,"$7.8B"]],8000,"54.7% CAGR, 2025 to 2034",["GPS global-average SPS standard: ≤8 m horizontal and ≤13 m vertical (95%)","Fastest-growing region: Asia Pacific","Moving from technology demonstrations toward commercial deployment, for autonomy, robotics, drones and critical infrastructure"],"Sources: Global Market Insights, LEO PNT Market (Sept. 2025); GPS.gov. Estimates vary materially by market definition.");
+panel("#panels","Terrestrial FSO market","USD million",[["2025",279.3,"$279.3M"],["2026",316.7,"$316.7M"],["2034",1006,"$1.006B"]],1100,"15.54% forecast CAGR",["Short-range is the leading range segment today","Demand is real, but adoption remains concentrated in established short-range use cases","Driven by demand for high-bandwidth, low-latency, rapidly deployable connectivity"],"Source: Fortune Business Insights, Terrestrial FSO Market, 2026.");
+
+cards("#dc",[["Dense interconnection corridors","Concentration around major hubs creates high-value routes between data centres, network hubs and enterprise infrastructure."],["Distributed infrastructure is expanding","Expansion into Tier-II cities increases the need to connect geographically distributed data-centre and computing capacity.",,B],["Connectivity becomes strategic","As compute grows, low-latency, high-capacity links become increasingly important for inter-data-centre and network interconnection.",,A]]);
+$("#pnti").innerHTML="";cards("#pnti",[["Global GNSS constellations","GPS, Galileo, BeiDou and GLONASS provide the core worldwide satellite-based PNT layer."],["Indian regional PNT layer","NavIC provides independent regional PNT coverage over India and about 1,500 km beyond the mainland.",,B],["Precision augmentation","RTK, PPP and augmentation can move positioning from metre-scale toward sub-metre and centimetre-level performance in suitable conditions.",,A]]);
+cards("#prob",[["Deployment","New fiber routes require trenching, civil works and rights-of-way.",,B],["Optical network scalability","FSO is predominantly deployed point-to-point. Scalable multi-node optical LOS is not yet commercially established.",,A],["PNT resilience","GNSS can be disrupted by jamming, spoofing, obstruction and signal degradation.",,P]]);
+cards("#gap",[["Fiber","Very high capacity and mature networking.<ul><li>New routes require trenching</li><li>Civil works and rights-of-way</li><li>High deployment cost and time</li></ul>",,B],["RF / microwave","Rapid deployment and broad wireless reach.<ul><li>Spectrum constraints</li><li>Bandwidth scaling limits</li><li>Propagation and interference constraints</li></ul>",,A],["Current FSO","High-bandwidth wireless optical connectivity.<ul><li>Predominantly point-to-point</li><li>Atmospheric sensitivity</li><li>Limited multi-node scalability</li></ul>",,G],["GNSS / GPS","Global PNT availability and a mature ecosystem.<ul><li>Errors vary by conditions</li><li>Jamming and spoofing vulnerability</li><li>Obstruction and urban degradation</li></ul>",,"#6f86f0"],["LEO-PNT","Emerging approach to high-precision PNT.<ul><li>Constellations still developing</li><li>Limited commercial availability today</li><li>Deployment and regulatory complexity</li></ul>",,P],["GEO / augmentation","Useful for timing and augmentation.<ul><li>Less favorable positioning geometry</li><li>Long propagation distance</li><li>Not a standalone GNSS replacement</li></ul>",,S]]);
+cards("#fso",[["Traditional FSO","High-capacity wireless optical links. Predominantly point-to-point, with atmospheric sensitivity."],["Taara Lightbridge","20 Gbps over 0.4 to 20 km. Point-to-point access with weather-dependent availability.",,B],["Aalyria Tightbeam","100-Gbps-class optical links. Advanced transport and link technology, network deployment still evolving.",,A],["Mynaric CONDOR","Space optical communications. Primarily space and terminal focused, with complex PAT requirements.",,P],["LEO optical meshes","High-capacity inter-satellite links. Ground access remains challenging, with atmospheric and PAT constraints.",,"#6f86f0"],["Optical ground links","Very high capacity to and from space. Clouds, turbulence and site availability can interrupt links.",,S]]);
+const rows=[["Terrestrial FSO","✓","✓","—","Planned"],["20+ Gbps optical link","✓","✓","✓","Target"],["100-Gbps-class","—","✓","✓*","Target"],["Automated acquisition","✓","✓","✓","Proposed"],["Multi-node optical networking","Limited / relay","✓","Space-focused","Proposed"],["Intelligent routing","Integration","Spacetime","Terminal / standards","SC-PCLR"],["Proprietary transmission protocol","—","—","Standards-oriented","FSOP-vN"],["QAM + DWDM architecture","—","—","—","Proposed"],["Terrestrial to LEO pathway","—","✓","✓","Planned"],["Integrated PNT","—","—","—","SC-PNT"]];
+$("#cmp").innerHTML="<tr><th>Capability</th><th>Taara</th><th>Aalyria</th><th>Mynaric</th><th class=s>StarConnectNet</th></tr>"+rows.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td class=s>${r[4]}</td></tr>`).join("");
+cards("#pntx",[["GNSS / GPS","Global coverage. Jamming, spoofing and obstruction.",,"#6f86f0"],["GEO-based PNT","Augmentation and timing. Less favorable geometry and long propagation distance.",,S],["MEO GNSS","Global PNT. Atmospheric errors, interference and signal strength.",,B],["RTK / PPP","High precision. Correction infrastructure, convergence and service dependency.",,A],["LEO-PNT","Emerging precision PNT. Constellations and global services still developing.",,P],["Ground-based PNT","Very high local accuracy. Limited geographic coverage.",,G]]);
+
+flow("#tx",[["Sender Data","Application / payload"],["FSOP-vN","Encode, parallelize, multiplex","core"],["Optical Transceiver","QAM, DWDM, FSO / optical link",""],["SC-PCLR","Routing, handover, orchestration","core"],["Optical / LEO Node","LOS relay / endpoint"]]);
+flow("#rx",[["SC-PCLR","Route, recover, coordinate","core"],["Optical Transceiver","Receive, demux, recover"],["FSOP-vN","Decode, de-parallelize","core"],["Receiver Data","Recovered payload"]]);
+flow("#pn",[["LEO PNT Node","State, time, ranging"],["RF link","Broadcast / downlink","core"],["PNT User / Terminal","Position, velocity, time"]]);
+
+cards("#adv",[["Proprietary transmission","FSOP-vN is the core transmission architecture, designed to combine encoding with parallelization and optical-channel aggregation. Experimental hardware validation remains the next proof point.","Core"],["Parallel capacity scaling","Aggregate capacity scales through multiple information channels, wavelengths and/or spatial channels, and does not depend on a single faster optical stream.","Core"],["Network-native optical architecture","SC-PCLR is intended to coordinate link selection, routing, handover and network state across multiple optical LOS nodes, beyond a standalone point-to-point link.","Core"],["Terrestrial to LEO pathway","A common optical-networking architecture is designed to extend from terrestrial FSO and backhaul toward future LEO optical links.","Planned"],["ISP-integrated commercialization","Initial deployment is positioned as high-capacity optical transport and backhaul integrated with licensed ISP and telecom networks, with no need to replace the service provider.","Core"]]);
+cards("#spn",[["Optical ranging and time transfer","Optical inter-node links can provide a high-precision ranging and timing backbone, an additional measurement source for PNT estimation.","Planned"],["Communication and PNT on one infrastructure","The same LEO and terrestrial optical network can support communications while also exchanging timing, state and ranging information.","Planned"],["LEO geometry as a new PNT layer","A dedicated LEO PNT architecture can add satellite geometry and faster-changing observations, complementing existing GNSS.","Planned"],["Resilience beyond GNSS-only positioning","An additional PNT source where GNSS performance is degraded by interference, obstruction or other error sources.","Planned"],["Commercial PNT services","A service delivering position, velocity and time to autonomous systems, drones, robotics, surveying and telecom timing.","Planned"]]);
+
+flow("#b2b",[["StarConnectNet","FSO terminal, optical transport, link capacity"],["ISP / Telecom","IP / MPLS / BGP, NOC + SLA, customer interface"],["Enterprise / data centre","Private link, backhaul, interconnection"]]);
+flow("#b2c",[["SC-PNT","Position, velocity, time. Precision PNT service"],["RF service layer","Broadcast / downlink, user-accessible PNT signals"],["Consumer / user","Drones, robotics, mobility, devices"]]);
+$("#b2b").querySelectorAll(".arrow").forEach(a=>a.innerHTML="&#9660;");$("#b2c").querySelectorAll(".arrow").forEach(a=>a.innerHTML="&#9660;");
+
+cards("#trl",[["TRL 2: concept formulated","FSOP-vN with simulations and analysis. System architecture and satellite architecture formulation.","Now",G],["Proof of concept: integrated lab prototype","1550-nm optical path, modulation / demodulation, FSOP with basic tracking and measurements.","Next milestone",A],["TRL 3: experimental validation","Measured BER, measured throughput, timing and link performance.","Proof point",B],["TRL 4: integrated laboratory system","More complete terminal, optical-channel aggregation, controlled FSO test range.","Scale-up",P]]);
+cards("#plan",[["Simulate and test","Develop the PoC through simulations, ground-based steering and experiments over distances up to 1 km.",,B],["Build the terrestrial prototype","Build the first ground-based prototype, validate a 1 km link, then work toward a 50 km terrestrial link.",,G],["Validate satellite-assisted routing","Use satellite links or satellite-system tests to validate the infrastructure and train the routing model.",,P],["Develop a consumer-ready MVP","Turn the validated system into a basic minimum viable product suitable for initial user evaluation.",,A],["Launch and scale","Launch after validation, learn from early deployments, and scale the system and customer base.",,"#6f86f0"]]);
+
+cards("#tm",[["Diptesh Lodh","Co-Founder and CEO. FSOP protocols and optical transmission systems."],["Aryan Lohar","Co-Founder and R&amp;D Lead. Orbital mechanics, theoretical modelling, atmospheric scintillation, optics, routing, overall R&amp;D.",,B],["Akshat Chakravarty","Co-Founder and CTO. Routing protocols, network development, website and platform management.",,A],["Arnab Roy","Transmission Systems Lead. Transmission-system design.",,P],["Mohd Rayyan Ahmad","Co-Founder, Satellite Networks. Predictive routing models, network analytics, satellite systems and network.",,G],["Pranjal Sengupta","Satellite Systems. Setting up and managing satellites.",,B],["Satish Kumar Mahato","Power Systems. Managing power systems.",,A],["Harika Reddy Kondakindi","Navigation and Satellite Systems. PNT and satellite systems.",,P]]);
+$("#sk").innerHTML=["Embedded systems","Mathematical and physical modelling","Signal processing","Machine-learning modelling","Networking","Navigation and satellite systems"].map(s=>`<span>${s}</span>`).join("");
+cards("#ex",[["Satellite fabrication",""],["Systems engineering and integration","",,B],["Optics, photonics and embedded hardware","",,A],["Controls, tracking and test engineering","",,P]]);
+$("#ex").querySelectorAll("p").forEach(p=>p.remove());
+cards("#need",[["POC development capital","Funding to procure optical components, 1550-nm sources and detectors, modulation electronics, control hardware and test equipment for the first integrated lab prototype."],["Incubation and technical ecosystem","Incubation resources, workspace and the technical ecosystem needed to build, test and iterate the prototype.",,B],["Deep-tech mentorship","Mentors who challenge the technical roadmap, product architecture, commercialization assumptions and execution milestones.",,A],["Industry and pilot connects","Introductions to ISPs, telecom operators, data centers and enterprise users for customer discovery and future pilots.",,P],["Funding and investor pathway","Help accessing seed and grant opportunities and preparing for follow-on fundraising after measurable POC results.",,G],["Business and commercialization support","Pricing, GTM, IP strategy, regulatory planning, and converting the technology into a scalable B2B infrastructure business.",,"#6f86f0"],["Qualified and expanded technical team","A larger, highly qualified team across optics, photonics, communications, embedded systems, networking, control, aerospace and PNT.",,S]]);
+</script>
+</body>
+</html>
